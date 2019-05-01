@@ -7,7 +7,7 @@
 
 
 ## 이름
-
+HyeongMin (hymiin)
 
 ## 작업
  * [예시 작업](./example/)
