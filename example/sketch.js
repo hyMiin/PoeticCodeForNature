@@ -2,7 +2,10 @@ let p = [];
 
 function setup() {
   title = createElement('h2', "<a href='/PoeticCodeForNature'> HOME : </a> 작품 제목");
-  createCanvas(300, 300);
+   title.position(20, 0);
+  canvas = createCanvas(300, 300);
+  canvas.position(20, 60);
+  canvas.class("artwork");
   colorMode(RGB, 100, 100, 100, 255);
 }
 
