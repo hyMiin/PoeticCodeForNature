@@ -1,7 +1,7 @@
 let p = [];
 
 function setup() {
-  createCanvas(750, 750);
+  createCanvas(300, 300);
   colorMode(RGB, 100, 100, 100, 255);
 }
 
