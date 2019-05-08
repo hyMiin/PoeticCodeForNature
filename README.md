@@ -4,6 +4,8 @@
 
 ## 이름
 HyeongMin (hymiin)
+ * DigitalArt
+ * Creative Technology
 
 ## 작업
  * [예시 작업](./ex01/)
