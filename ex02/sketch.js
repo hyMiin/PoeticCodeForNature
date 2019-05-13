@@ -1,74 +1,52 @@
-let p = [];
-
+let c = [];
+let xoff = 0;
 function setup() {
-  title = createElement('h2', "<a href='/PoeticCodeForNature'> HOME : </a> 작품 제목");
+  title = createElement('h2', "<a href='/PoeticCodeForNature'> HOME : </a> Comet");
    title.position(20, 0);
   canvas = createCanvas(400, 400);
   canvas.position(20, 60);
   canvas.class("artwork");
-  colorMode(RGB, 100, 100, 100, 255);
+  for (let i=0; i < 100; i++) {
+  c[i] = new Comet();
+  }
 }
 
 function draw() {
-  background(100);
-  for (let i = 0; i < p.length; i++) {
-    p[i].addParticle();
-    for (let j = 0; j < p[i].particles.length; j++) {
-      p[i].particles[j].run(i);
-      if (p[i].particles[j].isDead()) {
-        p[i].particles.splice(j, 1);
-        j--;
-      }
-    }
+  background(0,5);
+  for (let i=0; i< c.length; i++){
+  c[i].update();
+  c[i].display();
   }
 }
 
-class Particle {
-  constructor(l) {
+class Comet {
+  constructor() {
     this.acc = createVector(0, 0.005);
-    this.vel = createVector(random(-1, 1), random(-1, 1));
-    this.pos = l;
+    this.vel = createVector(0,0);
+    this.pos = createVector(random(width), random(height));
+    this.h = 100;
     this.lifespan = 255.0;
   }
-  run(i) {
-    this.update();
-    this.display(i);
-  }
   update() {
+    this.mouse=createVector(mouseX, mouseY);
+    this.n = noise(xoff);
+    this.acc = p5.Vector.sub(this.mouse, this.pos);
+    this.acc.setMag(0.05);
     this.vel.add(this.acc);
     this.pos.add(this.vel);
-    this.lifespan -= 2.0;
+    this.lifespan -= 1.0;
+    xoff += 0.1;
+    this.h -= this.n * random(0.1, 0.5);
   }
-  display(i) {
+  display() {
     noStroke();
-    fill(p[i].col, 0, 0, this.lifespan);
-    rect(this.pos.x, this.pos.y, 12, 12);
+    fill(random(255), 50, 100, this.lifespan);
+    ellipse(this.pos.x, this.pos.y, 5, 5);
   }
   isDead() {
     if (this.lifespan < 0.0) {
-      return true;
-    } else {
-      return false;
+      this.update();
+      this.display();
     }
-  }
-}
-
-function mouseClicked() {
-  p.push(new ParticleSystem(mouseX, mouseY));
-  p.push(new ParticleSystem(mouseX - 10, mouseY));
-  p.push(new ParticleSystem(mouseX + 10, mouseY));
-  p.push(new ParticleSystem(mouseX, mouseY - 10));
-  p.push(new ParticleSystem(mouseX, mouseY + 10));
-}
-
-class ParticleSystem {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.col = random(50, 255);
-    this.particles = [];
-  }
-  addParticle() {
-    this.particles.push(new Particle(createVector(this.x, this.y)));
   }
 }
