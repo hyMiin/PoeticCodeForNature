@@ -3,7 +3,7 @@ let scl = 20;
 let cols;
 let rows;
 let zoff = 0;
-let particleObejct = 10000;
+let particleObejct = 100;
 let particles = [];
 let flowField;
 
